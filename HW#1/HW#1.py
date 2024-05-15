@@ -25,8 +25,8 @@ x_train = x_train[validation_num:]
 t_train = t_train[validation_num:]
 
 
-def __train(lr, weight_decay, hidden_size, hidden_layer_size, epocs=10000):
-    network = MultiLayerNet(input_size=784, hidden_size_list=[hidden_size] * hidden_layer_size,
+def __train(lr, weight_decay, hidden_layer_size, epocs=2000):
+    network = MultiLayerNet(input_size=784, hidden_size_list=[100] * hidden_layer_size,
                             output_size=10, weight_decay_lambda=weight_decay)
     trainer = Trainer(network, x_train, t_train, x_val, t_val,
                       epochs=epocs, mini_batch_size=100,
@@ -37,7 +37,7 @@ def __train(lr, weight_decay, hidden_size, hidden_layer_size, epocs=10000):
 
 
 # 하이퍼파라미터의 랜덤 탐색
-optimization_trial = 100
+optimization_trial = 20
 results_val = {}
 results_train = {}
 for _ in range(optimization_trial):
@@ -45,10 +45,9 @@ for _ in range(optimization_trial):
     weight_decay = 10 ** np.random.uniform(-8, -4)
     lr = np.random.uniform(0.001, 0.019)
     hidden_size = np.random.randint(5, 16)
-    hidden_layer_size = 3
     # ================================================
 
-    val_acc_list, train_acc_list = __train(lr, weight_decay, hidden_size, hidden_layer_size)
+    val_acc_list, train_acc_list = __train(lr, weight_decay, hidden_size)
     print("val acc:" + str(val_acc_list[-1]) + " | lr:" + str(lr) + ", weight decay:" + str(weight_decay))
     key = "lr:" + str(lr) + ", weight decay:" + str(weight_decay)
     results_val[key] = val_acc_list
