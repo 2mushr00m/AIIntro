@@ -10,7 +10,7 @@ import os
 import numpy as np
 
 
-url_base = 'http://yann.lecun.com/exdb/mnist/'
+url_base = 'http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/'
 key_file = {
     'train_img':'train-images-idx3-ubyte.gz',
     'train_label':'train-labels-idx1-ubyte.gz',
@@ -19,7 +19,7 @@ key_file = {
 }
 
 dataset_dir = os.path.dirname(os.path.abspath(__file__))
-save_file = dataset_dir + "/mnist.pkl"
+save_file = dataset_dir + "/fashion_mnist.pkl"
 
 train_num = 60000
 test_num = 10000
